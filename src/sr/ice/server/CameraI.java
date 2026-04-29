@@ -31,7 +31,7 @@ public class CameraI extends AbstractDeviceI implements Camera {
             this.info.tilt = tilt;
             this.info.zoom = zoom;
 
-            System.out.println(name + ": Pozycja ustawiona na Pan=" + pan + ", Tilt=" + tilt + ", Zoom=" + zoom);
+            System.out.println(this.name + ": Pozycja ustawiona na Pan=" + pan + ", Tilt=" + tilt + ", Zoom=" + zoom);
         }
         else{
             throw new DeviceOffException();

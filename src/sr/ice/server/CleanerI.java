@@ -31,6 +31,7 @@ public class CleanerI extends AbstractDeviceI implements Cleaner {
     public void setMode(CleaningMode mode, Current current) throws DeviceOffException {
         if (this.state == DeviceState.ON) {
             this.mode = mode;
+            System.out.println(this.name + ": Tryb ustawiony na " + mode + ".");
             return;
         }
         throw new DeviceOffException();
@@ -41,6 +42,7 @@ public class CleanerI extends AbstractDeviceI implements Cleaner {
     public void returnToBase(Current current) throws DeviceOffException {
         if (this.state == DeviceState.ON){
             this.location = this.baseLocation;
+            System.out.println(this.name + ": Powrót do bazy");
             return;
         }
         throw new DeviceOffException();
@@ -53,7 +55,7 @@ public class CleanerI extends AbstractDeviceI implements Cleaner {
                 throw new InvalidValueException();
             }
             this.location = location;
-
+            System.out.println(this.name + ": Przesunięto do: x = " + location.x + ", y = " + location.y +".");
         }
         else {
             throw new DeviceOffException();

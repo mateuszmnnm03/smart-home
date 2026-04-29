@@ -27,6 +27,36 @@ def handle_camera(camera):
     except (home.DeviceOffException, home.InvalidValueException) as e:
         print(f"BŁĄD: {type(e).__name__}")
 
+def handle_cleaner(cleaner):
+    print(f"\nObsługa odkurzacza: {cleaner.getName()}")
+    print("1. Włącz | 2. Wyłącz | 3. Pobierz tryb | 4. Ustaw tryb | 5. Pobierz lokalizację | 6. Ustaw lokalizację | 7. Wróć do bazy")
+    choice = input("Wybór: ")
+    try:
+        if choice == "1": cleaner.turnOn()
+        elif choice == "2": cleaner.turnOff()
+        elif choice == "3":
+            mode = cleaner.getMode()
+            print(f"Tryb: {mode}")
+        elif choice == "4":
+            print("Dostępne tryby: 0-Silent, 1-Normal, 2-Turbo")
+            m = int(input("Tryb: "))
+            mode_enum = home.CleaningMode.valueOf(m) 
+            cleaner.setMode(mode_enum)
+            print("Tryb zmieniony.")
+        elif choice == "5":
+            loc = cleaner.getLocation()
+            print(f"Lokalizacja: x = {loc.x}, y = {loc.y}")
+        elif choice == "6":
+            x = int(input("X: "))
+            y = int(input("Y: "))
+            cleaner.moveToLocation(home.Coords(x, y))
+        elif choice == "7":
+            cleaner.returnToBase()
+    except (home.DeviceOffException, home.InvalidValueException) as e:
+        print(f"BŁĄD: {type(e).__name__}")
+
+    
+
 def handle_heater(heater):
     print(f"\nObsługa grzejnika: {heater.getName()}")
     print("1. Włącz | 2. Wyłącz | 3. Ustaw temperaturę")
@@ -53,25 +83,25 @@ def handle_heater(heater):
 
 def main():
     with Ice.initialize(sys.argv) as communicator:
-        # Mapowanie ID z serwera na typy proxy
         device_ids = ["cam1", "cam2", "heater1", "heater2", "cleaner1", "cleaner2"]
-        port = 10010 # Upewnij się, że taki masz w server.config
+        port = 10010 
 
         while True:
             choice = print_menu(device_ids)
-            if choice == "0": break
+            if choice == "0": 
+                break
 
             try:
                 selected_id = device_ids[int(choice) - 1]
                 proxy_str = f"{selected_id}:default -p {port}"
                 base = communicator.stringToProxy(proxy_str)
 
-                # Dynamiczne sprawdzanie typu urządzenia
                 if home.CameraPrx.checkedCast(base):
                     handle_camera(home.CameraPrx.uncheckedCast(base))
                 elif home.HeaterPrx.checkedCast(base):
                     handle_heater(home.HeaterPrx.uncheckedCast(base))
-                # Tutaj możesz dodać handle_cleaner analogicznie
+                elif home.CleanerPrx.checkedCast(base):
+                    handle_cleaner(home.CleanerPrx.uncheckedCast(base))
                 else:
                     print("Nieobsługiwany typ urządzenia.")
 

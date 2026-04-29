@@ -10,16 +10,13 @@ public class Server {
 
     public static void main(String[] args){
         String configFile = (args.length > 0) ? args[0] : "server2.config";
-        try (Communicator communicator = Util.initialize(args, "server2.config")) {
+        try (Communicator communicator = Util.initialize(args, "server.config")) {
 
-            // Nazwa adaptera musi sie zgadzac z wpisem w server.config
             ObjectAdapter adapter = communicator.createObjectAdapter("SmartHomeAdapter");
 
-            // Rejestracja urzadzen
             adapter.add(new CameraI("Kamera Salon", new Coords(0, 0)), Util.stringToIdentity("cam1"));
             adapter.add(new CameraI("Kamera Wejscie", new Coords(50, 50)), Util.stringToIdentity("cam2"));
 
-            // Podtypy Grzejnikow
             adapter.add(new RadiatorI("Grzejnik Sypialnia"), Util.stringToIdentity("heater1"));
             adapter.add(new GroundHeaterI("Ogrzewanie Salon"), Util.stringToIdentity("heater2"));
 
