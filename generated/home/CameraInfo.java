@@ -39,6 +39,9 @@ public class CameraInfo implements java.lang.Cloneable,
         this.zoom = zoom;
     }
 
+    public CameraInfo(float v, float v1, float v2) {
+    }
+
     public boolean equals(java.lang.Object rhs)
     {
         if(this == rhs)

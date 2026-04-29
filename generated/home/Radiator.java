@@ -18,7 +18,7 @@ package home;
 public interface Radiator extends Heater
 {
     void setFanSpeed(int speed, com.zeroc.Ice.Current current)
-        throws InvalidValueException;
+        throws InvalidValueException, DeviceOffException;
 
     /** @hidden */
     static final String[] _iceIds =

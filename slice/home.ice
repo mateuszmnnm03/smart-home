@@ -62,7 +62,7 @@ module home
 
     interface Radiator extends Heater // kaloryfer
     {
-        void setFanSpeed(int speed) throws InvalidValueException ;
+        void setFanSpeed(int speed) throws InvalidValueException, DeviceOffException ;
     };
 };
 
