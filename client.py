@@ -30,7 +30,6 @@ def handle_camera(camera):
 def handle_heater(heater):
     print(f"\nObsługa grzejnika: {heater.getName()}")
     print("1. Włącz | 2. Wyłącz | 3. Ustaw temperaturę")
-    # Sprawdzamy typ podrzędny (downcasting)
     if hasattr(home, 'RadiatorPrx') and home.RadiatorPrx.checkedCast(heater):
         print("4. Ustaw wentylator (Radiator)")
     if hasattr(home, 'GroundHeaterPrx') and home.GroundHeaterPrx.checkedCast(heater):

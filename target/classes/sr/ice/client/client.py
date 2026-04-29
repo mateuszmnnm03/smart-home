@@ -22,7 +22,7 @@ def handle_camera(camera):
             z = float(input("Zoom: "))
             camera.setPosition(p, t, z)
         elif choice == "4":
-            info = camera.getInfo()
+            info = camera.getInfo()A
             print(f"Pozycja: {info.location.x}, {info.location.y} | PTZ: {info.pan}, {info.tilt}, {info.zoom}")
     except (home.DeviceOffException, home.InvalidValueException) as e:
         print(f"BŁĄD: {type(e).__name__}")

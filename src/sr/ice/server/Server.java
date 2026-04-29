@@ -10,7 +10,7 @@ public class Server {
 
     public static void main(String[] args){
         String configFile = (args.length > 0) ? args[0] : "server2.config";
-        try (Communicator communicator = Util.initialize(args, "server.config")) {
+        try (Communicator communicator = Util.initialize(args, "server2.config")) {
 
             // Nazwa adaptera musi sie zgadzac z wpisem w server.config
             ObjectAdapter adapter = communicator.createObjectAdapter("SmartHomeAdapter");
