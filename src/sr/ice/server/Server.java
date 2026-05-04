@@ -10,7 +10,7 @@ public class Server {
 
     public static void main(String[] args){
         String configFile = (args.length > 0) ? args[0] : "server2.config";
-        try (Communicator communicator = Util.initialize(args, "server.config")) {
+        try (Communicator communicator = Util.initialize(args, "server2.config")) {
 
             ObjectAdapter adapter = communicator.createObjectAdapter("SmartHomeAdapter");
 
@@ -20,8 +20,8 @@ public class Server {
             adapter.add(new RadiatorI("Grzejnik Sypialnia"), Util.stringToIdentity("heater1"));
             adapter.add(new GroundHeaterI("Ogrzewanie Salon"), Util.stringToIdentity("heater2"));
 
-            adapter.add(new CleanerI("Roomba Parter", new Coords(0,0)), Util.stringToIdentity("cleaner1"));
-            adapter.add(new CleanerI("Roomba Pietro", new Coords(10,10)), Util.stringToIdentity("cleaner2"));
+            adapter.add(new CleanerI("Odkurzacz Parter", new Coords(0,0)), Util.stringToIdentity("cleaner1"));
+            adapter.add(new CleanerI("Odkurzacz Pietro", new Coords(10,10)), Util.stringToIdentity("cleaner2"));
 
             adapter.activate();
             System.out.println("Serwer Smart Home wystartowal!");

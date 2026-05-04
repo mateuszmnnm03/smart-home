@@ -82,9 +82,9 @@ def handle_heater(heater):
         print(f"BŁĄD: {e}")
 
 def main():
-    with Ice.initialize(sys.argv) as communicator:
+    with Ice.initialize([]) as communicator:
         device_ids = ["cam1", "cam2", "heater1", "heater2", "cleaner1", "cleaner2"]
-        port = 10010 
+        port = 10011
 
         while True:
             choice = print_menu(device_ids)
@@ -93,7 +93,7 @@ def main():
 
             try:
                 selected_id = device_ids[int(choice) - 1]
-                proxy_str = f"{selected_id}:default -p {port}"
+                proxy_str = f"{selected_id}:tcp -p {port}"
                 base = communicator.stringToProxy(proxy_str)
 
                 if home.CameraPrx.checkedCast(base):
